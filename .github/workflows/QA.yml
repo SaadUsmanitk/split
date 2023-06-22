@@ -1,15 +1,10 @@
-name: Cypress Run
-on:
-  push:
-    # run 3 copies of the current job in parallel
-  strategy:
-    fail-fast: false
-    matrix:
-      containers: [1, 2, 3]
-steps:
-  - name: Run split Cypress tests 🧪
-    uses: cypress-io/github-action@v5
-    # pass the machine index and the total number
-    env:
-      SPLIT: ${{ strategy.job-total }}
-      SPLIT_INDEX: ${{ strategy.job-index }}
+name: reusable
+on: [push]
+jobs:
+  tests:
+    # use the reusable workflow to check out the code, install dependencies
+    # and run the Cypress tests
+    # https://github.com/bahmutov/cypress-workflows
+    uses: bahmutov/cypress-workflows/.github/workflows/split.yml@v1
+    with:
+      n: 4
