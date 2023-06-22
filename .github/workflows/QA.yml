@@ -1,10 +1,31 @@
-name: reusable
-on: [push]
+name: Cypress Run
+on:
+  push:
+    # run 3 copies of the current job in parallel
+    branches:
+      - main
+
 jobs:
-  tests:
-    # use the reusable workflow to check out the code, install dependencies
-    # and run the Cypress tests
-    # https://github.com/bahmutov/cypress-workflows
-    uses: bahmutov/cypress-workflows/.github/workflows/split.yml@v1
-    with:
-      n: 4
+  cypress:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        containers: [1, 2, 3]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run split Cypress tests 🧪
+        uses: cypress-io/github-action@v5
+        env:
+          SPLIT: ${{ strategy.job-total }}
+          SPLIT_INDEX: ${{ strategy.job-index }}
