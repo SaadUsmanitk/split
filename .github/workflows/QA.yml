@@ -26,7 +26,8 @@ jobs:
 
       - name: Run split Cypress tests 🧪
         uses: cypress-io/github-action@v5
-        run: npx cypress run --reporter cypress-mochawesome-reporter
+        with:
+          run-command: npx cypress run --reporter cypress-mochawesome-reporter
         env:
           SPLIT: ${{ strategy.job-total }}
           SPLIT_INDEX: ${{ strategy.job-index }}
