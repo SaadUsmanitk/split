@@ -11,5 +11,8 @@ module.exports = defineConfig({
       return config 
       // implement node event listeners here
     },
+    baseUrl: 'https://app-qa.remotesf.com/',
+    specPattern: 'cypress/e2e/**/*.{js,jsx,ts,tsx}',
   },
+
 });
