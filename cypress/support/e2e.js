@@ -1,5 +1,5 @@
 // ***********************************************************
-// This example support/e2e.js is processed and
+// This example support/index.js is processed and
 // loaded automatically before your test files.
 //
 // This is a great place to put global configuration and
@@ -14,7 +14,17 @@
 // ***********************************************************
 
 // Import commands.js using ES2015 syntax:
-import './commands'
+import registerCypressGrep from '@cypress/grep';
+registerCypressGrep();
+import './Commands';
+import './CustomerFilter';
+import './Login';
+import './CustomerDetails/JobInformation';
+import './CustomerDetails/Appointment';
+import 'cypress-react-selector';
+import 'cypress-mochawesome-reporter/register';
 
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
+
+// Then register the command of allure plugin with cypress/support/index.js file
